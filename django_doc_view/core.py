@@ -8,16 +8,20 @@ if version[0] == '1':
     from django.core.urlresolvers import (
         RegexURLResolver as URLResolver, RegexURLPattern as URLPattern
     )
-else:
+elif version[0] == '2':
     from django.urls import URLResolver, URLPattern
+else:
+    raise Exception(
+        'unknown django version. django-doc-view only support django v1 and v2. Welcome pull request.'
+    )
 
 DEFAULT_OUTPUT_FORMAT = '''## {route}
     {doc}
 '''
 
 DEFAULT_SKIP_VIEW_NAMES = (
-    'serve', 'add_view', 'change_view', 'changelist_view', 'history_view',
-    'delete_view', 'RedirectViewInfo'
+    'serve', 'add_view', 'change_view', 'changelist_view', 'history_view', 'delete_view',
+    'RedirectViewInfo'
 )
 
 ViewInfo = namedtuple('ViewInfo', ['route', 'url_pattern'])
@@ -59,17 +63,13 @@ def __get_all_view_infos(urlpatterns):
             ]
 
         elif isinstance(url_pattern, URLPattern):
-            view_infos.append(
-                ViewInfo(
-                    route=__get_route(url_pattern),
-                    url_pattern=url_pattern,
-                )
-            )
+            view_infos.append(ViewInfo(
+                route=__get_route(url_pattern),
+                url_pattern=url_pattern,
+            ))
 
         else:
-            raise Exception(
-                'unknown url_pattern type {}'.format(type(url_pattern))
-            )
+            raise Exception('unknown url_pattern type {}'.format(type(url_pattern)))
 
     return view_infos
 
