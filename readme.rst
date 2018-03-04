@@ -1,5 +1,5 @@
-django-doc-view: The simplest way to document your Django APIs.
-===============================================================
+django-doc-view: The simplest way to document your Django APIs
+==============================================================
 
 `django-doc-view` find view's docsting and output them in shell after formatting.
 
