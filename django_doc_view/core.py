@@ -12,7 +12,7 @@ elif version[0] == '2':
     from django.urls import URLResolver, URLPattern
 else:
     raise Exception(
-        'unknown django version. django-doc-view only support django v1 and v2. Welcome pull request.'
+        'unknown django version. django-doc-view only support django 1.x and 2.x. Welcome pull request.'
     )
 
 DEFAULT_OUTPUT_FORMAT = '''## {route}
@@ -29,17 +29,19 @@ ViewInfo = namedtuple('ViewInfo', ['route', 'url_pattern'])
 
 def __get_route(url_pattern):
     try:
+        # for django 2.x
         return url_pattern.pattern._route  # TODO remove private attribute
     except Exception:
         pass
 
     try:
+        # for django 2.x
         return url_pattern.pattern._regex  # private attribute
     except Exception:
         pass
 
     try:
-        # for django v1
+        # for django 1.x
         return url_pattern._regex  # private attribute
     except Exception:
         pass
