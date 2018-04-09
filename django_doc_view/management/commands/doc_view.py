@@ -25,9 +25,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        urlpatterns = importlib.import_module(
-            settings.ROOT_URLCONF
-        ).urlpatterns
+        urlpatterns = importlib.import_module(settings.ROOT_URLCONF).urlpatterns
         if options.get('format'):
             result = django_doc_view(
                 urlpatterns, output_format=options['format'].replace('\\n', '\n')
