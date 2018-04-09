@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django_doc_view',
-    version='0.1.0',
+    version='0.1.1',
     keywords=('django', 'api', 'view', 'document', 'doc'),
     description='The simplest way to document your Django APIs',
     author='Ocavue',
