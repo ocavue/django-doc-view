@@ -17,7 +17,6 @@ setup(
     packages=find_packages(),
     platforms='any',
     classifiers=[
-        'Development Status :: 4 - Beta',
-        'Programming Language :: Python :: 3',
+        'Development Status :: 4 - Beta', 'Programming Language :: Python :: 3'
     ],
 )

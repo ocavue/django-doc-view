@@ -20,8 +20,13 @@ DEFAULT_OUTPUT_FORMAT = '''## {route}
 '''
 
 DEFAULT_SKIP_VIEW_NAMES = (
-    'serve', 'add_view', 'change_view', 'changelist_view', 'history_view', 'delete_view',
-    'RedirectViewInfo'
+    'serve',
+    'add_view',
+    'change_view',
+    'changelist_view',
+    'history_view',
+    'delete_view',
+    'RedirectViewInfo',
 )
 
 ViewInfo = namedtuple('ViewInfo', ['route', 'url_pattern'])
@@ -31,18 +36,21 @@ def __get_route(url_pattern):
     try:
         # for django 2.x
         return url_pattern.pattern._route  # TODO remove private attribute
+
     except Exception:
         pass
 
     try:
         # for django 2.x
         return url_pattern.pattern._regex  # private attribute
+
     except Exception:
         pass
 
     try:
         # for django 1.x
         return url_pattern._regex  # private attribute
+
     except Exception:
         pass
 
@@ -58,17 +66,14 @@ def __get_all_view_infos(urlpatterns):
 
             prefix = __get_route(url_resolver)
             view_infos += [
-                ViewInfo(
-                    route=prefix + view.route,
-                    url_pattern=view.url_pattern,
-                ) for view in __get_all_view_infos(url_resolver.url_patterns)
+                ViewInfo(route=prefix + view.route, url_pattern=view.url_pattern)
+                for view in __get_all_view_infos(url_resolver.url_patterns)
             ]
 
         elif isinstance(url_pattern, URLPattern):
-            view_infos.append(ViewInfo(
-                route=__get_route(url_pattern),
-                url_pattern=url_pattern,
-            ))
+            view_infos.append(
+                ViewInfo(route=__get_route(url_pattern), url_pattern=url_pattern)
+            )
 
         else:
             raise Exception('unknown url_pattern type {}'.format(type(url_pattern)))
@@ -83,15 +88,14 @@ def django_doc_view(
 ):
     # TODO add docstring
     view_infos = [
-        i for i in __get_all_view_infos(all_urlpatterns)
+        i
+        for i in __get_all_view_infos(all_urlpatterns)
         if i.url_pattern.callback.__name__ not in skip_view_names
     ]
 
     return '\n'.join(
         [
-            output_format.format(
-                route=i.route,
-                doc=i.url_pattern.callback.__doc__,
-            ) for i in view_infos
+            output_format.format(route=i.route, doc=i.url_pattern.callback.__doc__)
+            for i in view_infos
         ]
     )
