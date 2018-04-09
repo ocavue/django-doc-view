@@ -1,5 +1,9 @@
 # django-doc-view: The simplest way to document your Django APIs
 
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/ocavue/django-doc-view/blob/master/LICENSE)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![Code style: black](https://img.shields.io/pypi/v/django-doc-view.svg)](https://pypi.org/project/django-doc-view/)
+
 `django-doc-view` find view's docsting and output them in shell after formatting.
 
 ## Installation
