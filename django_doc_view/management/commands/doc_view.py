@@ -8,7 +8,7 @@ from django_doc_view.core import DEFAULT_OUTPUT_FORMAT
 
 
 class Command(BaseCommand):
-    help = 'document django project. read this page for more info: https://github.com/ocavue/django-doc-view'
+    help = 'The simplest way to document your Django APIs. read this page for more info: https://github.com/ocavue/django-doc-view'
 
     def add_arguments(self, parser):
         parser.add_argument(
